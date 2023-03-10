@@ -1,0 +1,40 @@
+﻿<h2>Hi there, please input the value of an array</h2>
+
+<div>
+
+    <form id="myf" class="row g-3 needs-validation py-2">
+        <div class="col-md-4">
+            <input id="inputValue" class="form-control" type="text" pattern="^[\d,\s]*$" required/>
+        </div>
+    </form>
+
+    <button id="submit" type="button" class="btn btn-primary">Submit</button>
+
+    <div id="res"></div>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            $("#submit").click(function () {
+                if ($('#myf').valid()) {
+                    $.ajax({
+                        url: '/Home/Sort?input=' + $('#inputValue').val().toString(),
+                        contentType: 'application/json',
+                        type: 'POST',
+                        success: function (data, status, xhr) {
+                            console.log(data)
+                            $('#res').empty();
+                            $('#res').append("Result: <br />");
+                            $('#res').append(data);
+                        }
+                    });
+                }
+                else {
+                    console.log('Error')
+                }
+            });
+        });
+    </script>
+}
